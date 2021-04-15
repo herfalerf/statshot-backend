@@ -6,8 +6,11 @@ from models import connect_db, db, User, Preference, Login
 from flask_cors import CORS, cross_origin
 from sqlalchemy import exc
 import os
+import re
 
-
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
 
 app = Flask(__name__)
 cors = CORS(
