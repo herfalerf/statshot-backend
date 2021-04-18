@@ -1,8 +1,5 @@
-# **Statshot**  
-
-##### [Schema design](https://app.quickdatabasediagrams.com/#/d/LzSoFk)  
-
-##### [API - nhlapi](https://gitlab.com/dword4/nhlapi)
+# **StatShot**  
 
 
 
+[Click here to go to StatShot front-end repo.  This repo contains the README for the entire application.](https://github.com/herfalerf/statshot-frontend)
