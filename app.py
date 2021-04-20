@@ -102,10 +102,10 @@ def register():
             db.session.rollback()
             success['login'] = False
             success['message'] = "That username is already taken"
-        return jsonify(success), 403
+        return jsonify(success), 400
     else:
         success['login'] = False
-        return jsonify(success), 403
+        return jsonify(success), 400
 
     
 @app.route('/api/users/login', methods=["POST"])
@@ -136,11 +136,11 @@ def login():
             success['login'] = False
             success['message'] = "The username/password is incorrect"
         
-            return jsonify(success), 403
+            return jsonify(success), 401
     else:
         success['login'] = False
         success['message'] = "The username/password is incorrect"
-        return jsonify(success), 403
+        return jsonify(success), 401
 
 @app.route('/api/users/logout', methods=["POST"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)

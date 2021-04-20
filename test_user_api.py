@@ -60,7 +60,7 @@ class UserAPITestCase(TestCase):
             
             json_data = resp.get_json()
 
-            self.assertEqual(resp.status_code, 403)
+            self.assertEqual(resp.status_code, 400)
             self.assertIn('False', str(json_data))
     
     def test_none_username_reg_response(self):
@@ -72,7 +72,7 @@ class UserAPITestCase(TestCase):
             
             json_data = resp.get_json()
 
-            self.assertEqual(resp.status_code, 403)
+            self.assertEqual(resp.status_code, 400)
             self.assertIn('False', str(json_data))
     
     def test_invalid_password_reg_response(self):
@@ -84,7 +84,7 @@ class UserAPITestCase(TestCase):
             
             json_data = resp.get_json()
 
-            self.assertEqual(resp.status_code, 403)
+            self.assertEqual(resp.status_code, 400)
             self.assertIn('False', str(json_data))
     
     def test_none_password_reg_response(self):
@@ -96,7 +96,7 @@ class UserAPITestCase(TestCase):
             
             json_data = resp.get_json()
 
-            self.assertEqual(resp.status_code, 403)
+            self.assertEqual(resp.status_code, 400)
             self.assertIn('False', str(json_data))
     
     def test_user_in_session_on_reg(self):
@@ -150,7 +150,7 @@ class UserAPITestCase(TestCase):
 
             json_data = resp_login.get_json()
 
-            self.assertEqual(resp_login.status_code, 403)
+            self.assertEqual(resp_login.status_code, 401)
             self.assertIn('False', str(json_data))
     
     def test_none_username_login_response(self):
@@ -170,7 +170,7 @@ class UserAPITestCase(TestCase):
 
             json_data = resp_login.get_json()
 
-            self.assertEqual(resp_login.status_code, 403)
+            self.assertEqual(resp_login.status_code, 401)
             self.assertIn('False', str(json_data))
     
     def test_invalid_password_login_response(self):
@@ -190,7 +190,7 @@ class UserAPITestCase(TestCase):
 
             json_data = resp_login.get_json()
 
-            self.assertEqual(resp_login.status_code, 403)
+            self.assertEqual(resp_login.status_code, 401)
             self.assertIn('False', str(json_data))
     
     def test_none_password_login_response(self):
@@ -210,7 +210,7 @@ class UserAPITestCase(TestCase):
 
             json_data = resp_login.get_json()
 
-            self.assertEqual(resp_login.status_code, 403)
+            self.assertEqual(resp_login.status_code, 401)
             self.assertIn('False', str(json_data))
     
     def test_user_in_session_on_login(self):
