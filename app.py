@@ -101,10 +101,11 @@ def register():
         except exc.IntegrityError:
             db.session.rollback()
             success['login'] = False
-            success['message'] = "That username is already taken"
+            success['message'] = "taken"
         return jsonify(success), 400
     else:
         success['login'] = False
+        success['message'] = "invalid"
         return jsonify(success), 400
 
     
