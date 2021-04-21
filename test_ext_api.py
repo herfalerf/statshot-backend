@@ -33,7 +33,7 @@ class ExtAPITestCase(TestCase):
         """Test that external api call for teams list is functioning properly"""
 
         with self.client as c:
-            reg = c.post('/api/users/register', json={
+            reg = c.post('api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
             resp = c.get('api/teams')
@@ -58,7 +58,7 @@ class ExtAPITestCase(TestCase):
         """Test that external api call for specific team is functioning properly"""
         
         with self.client as c:
-            reg = c.post('/api/users/register', json={
+            reg = c.post('api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
             resp = c.get('api/teams/25')
