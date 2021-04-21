@@ -155,13 +155,13 @@ def logout():
 
     logout = {"logout": "You have been logged out"}
 
-    resp = {'session':{}}
-    for item in session:
-        resp['session'] = item
+    # resp = {'session':{}}
+    # for item in session:
+    #     resp['session'] = item
 
-    return jsonify(resp)
+    # return jsonify(resp)
 
-    # return jsonify(logout)
+    return jsonify(logout)
 
 @app.route('/api/users/<int:user_id>/prefs', methods=["GET", "POST"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
