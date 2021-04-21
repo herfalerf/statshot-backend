@@ -35,12 +35,12 @@ class PrefsAPITestCase(TestCase):
         """Test json response from valid user prefs POST call"""
 
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
-            resp = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            resp = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
 
             json_data = resp.get_json()
 
@@ -51,11 +51,11 @@ class PrefsAPITestCase(TestCase):
         """Test json response from unathorized user prefs POST call"""
 
         with self.client as c:
-            reg = c.post('api/users/register', json={  
+            reg = c.post('/api/users/register', json={  
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
-            resp = c.post('api/users/9999/prefs', json={"favTeamId": 25})
+            resp = c.post('/api/users/9999/prefs', json={"favTeamId": 25})
 
             json_data = resp.get_json()
 
@@ -67,15 +67,15 @@ class PrefsAPITestCase(TestCase):
         """Test json response when no user is logged in on prefs POST call"""
 
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
            
-            logout = c.post('api/users/logout')
+            logout = c.post('/api/users/logout')
             
-            resp = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            resp = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
             
             json_data = resp.get_json()
 
@@ -87,15 +87,15 @@ class PrefsAPITestCase(TestCase):
         """Test that prefs are returned for valid user on GET request"""
 
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
 
-            set_prefs = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            set_prefs = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
 
-            resp = c.get(f'api/users/{user.id}/prefs')
+            resp = c.get(f'/api/users/{user.id}/prefs')
 
             json_data = resp.get_json()
 
@@ -105,15 +105,15 @@ class PrefsAPITestCase(TestCase):
     def test_unathorized_user_get_prefs(self):
         """Test response from user prefs GET call with unauthorized user"""
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
 
-            set_prefs = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            set_prefs = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
 
-            resp = c.get(f'api/users/9999/prefs')
+            resp = c.get(f'/api/users/9999/prefs')
 
             json_data = resp.get_json()
 
@@ -124,17 +124,17 @@ class PrefsAPITestCase(TestCase):
     def test_no_user_get_prefs(self):
         """Test user prefs GET request with no user"""
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
             
             user = User.query.filter_by(username='validreg').first()
 
-            set_prefs = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            set_prefs = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
            
-            logout = c.post('api/users/logout')
+            logout = c.post('/api/users/logout')
             
-            resp = c.get(f'api/users/{user.id}/prefs')
+            resp = c.get(f'/api/users/{user.id}/prefs')
             
             json_data = resp.get_json()
 
@@ -145,13 +145,13 @@ class PrefsAPITestCase(TestCase):
     def test_prefs_in_session_on_post(self):
         """Test that user prefs are added to session on valid POST request"""
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
             
-            resp = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            resp = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
             
             prefs = Preference.query.get(user.id)
 
@@ -160,17 +160,17 @@ class PrefsAPITestCase(TestCase):
     def test_prefs_in_session_on_get(self):
         """Test that user prefs are added to session on valid GET request"""
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
             
-            set_prefs = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            set_prefs = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
 
             session.pop("fav_team", None)
 
-            resp = c.get(f'api/users/{user.id}/prefs')
+            resp = c.get(f'/api/users/{user.id}/prefs')
 
             prefs = Preference.query.get(user.id)
 
@@ -179,13 +179,13 @@ class PrefsAPITestCase(TestCase):
     def test_no_prefs_in_session_on_logout(self):
         """Test that user prefs are removed from session on logout"""
         with self.client as c:
-            reg = c.post('api/users/register', json={
+            reg = c.post('/api/users/register', json={
                                                 "username": "validreg", 
                                                 "password": "validpass"})
 
             user = User.query.filter_by(username='validreg').first()
             
-            set_prefs = c.post(f'api/users/{user.id}/prefs', json={"favTeamId": 25})
+            set_prefs = c.post(f'/api/users/{user.id}/prefs', json={"favTeamId": 25})
 
             prefs = Preference.query.get(user.id)
 

@@ -39,7 +39,7 @@ connect_db(app)
 
 
 
-@app.route('api/teams', methods=["GET"])
+@app.route('/api/teams', methods=["GET"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def get_teams():
     """Call NHL API to get lucky number"""
@@ -52,7 +52,7 @@ def get_teams():
         return jsonify(teams_data)
 
 
-@app.route('api/teams/<int:team_id>', methods=["GET"])
+@app.route('/api/teams/<int:team_id>', methods=["GET"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def get_specified_team(team_id):
     """Call data for specific team by team id"""
@@ -66,7 +66,7 @@ def get_specified_team(team_id):
         return jsonify(team_data)
 
 
-@app.route('api/users/register', methods=["POST"])
+@app.route('/api/users/register', methods=["POST"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def register():
     """Register a user:  receive JSON form data and submit to DB"""
@@ -109,7 +109,7 @@ def register():
         return jsonify(success), 400
 
     
-@app.route('api/users/login', methods=["POST"])
+@app.route('/api/users/login', methods=["POST"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def login():
     """Login a user: recieve JSON form data and authenticate username/password."""
@@ -143,7 +143,7 @@ def login():
         success['message'] = "The username/password is incorrect"
         return jsonify(success), 401
 
-@app.route('api/users/logout', methods=["POST"])
+@app.route('/api/users/logout', methods=["POST"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def logout():
     """Log a user out.  Remove user id from session."""
@@ -163,7 +163,7 @@ def logout():
 
     return jsonify(logout)
 
-@app.route('api/users/<int:user_id>/prefs', methods=["GET", "POST"])
+@app.route('/api/users/<int:user_id>/prefs', methods=["GET", "POST"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def prefs(user_id):
     """Get user prefs on GET request"""
@@ -187,7 +187,7 @@ def prefs(user_id):
         prefs = {"prefs":{"favTeam": f"{fav_team_id}"}}
         return jsonify(prefs)
 
-@app.route('api/users/session')
+@app.route('/api/users/session')
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def check_session():
     """Check if a user is stored in the session, return user information if so"""
@@ -205,7 +205,7 @@ def check_session():
         
         return jsonify(success)
 
-@app.route('ping', methods=["GET"])
+@app.route('/ping', methods=["GET"])
 @cross_origin(origin=' https://herfalerf.github.io', supports_credentials=True)
 def ping():
 
