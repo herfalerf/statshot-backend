@@ -245,7 +245,7 @@ class UserAPITestCase(TestCase):
             json_data = resp_logout.get_json()
 
             self.assertEqual(resp_logout.status_code, 200)
-            self.assertIn('test', str(json_data))
+            self.assertIn('logout', str(json_data))
 
     def test_user_not_in_session_on_logout(self):
         """Test that user no in session on logout"""
